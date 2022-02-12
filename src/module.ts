@@ -6,6 +6,12 @@ import { CodeEditorOption } from 'components/PanelOptions/CodeEditor';
 import { ImportExportOption } from 'components/PanelOptions/ImportExport';
 import { SelectedCalcsOption } from 'components/PanelOptions/SelectedCalcsOption';
 
+import Highcharts from 'highcharts';
+import Highcharts3d from 'highcharts/highcharts-3d';
+Highcharts3d(Highcharts);
+
+window.Highcharts = Highcharts;
+
 export const plugin = new PanelPlugin<OptionsInterface>(HTMLPanel).useFieldConfig().setPanelOptions((builder) => {
   return builder
     .addRadio({

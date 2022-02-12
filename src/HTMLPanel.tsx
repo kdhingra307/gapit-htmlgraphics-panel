@@ -16,6 +16,7 @@ import { addShadowRoot } from 'utils/addShadowRoot';
 import { triggerPanelupdate } from 'utils/events/panelupdate';
 import { triggerPanelwillunmount } from 'utils/events/panelwillunmount';
 import { addHtml } from 'utils/addHtml';
+import FastPriorityQueue from 'fastpriorityqueue';
 
 interface Props extends PanelProps<OptionsInterface> {}
 interface PanelState {
@@ -44,6 +45,7 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
   errors: PanelState['errors'] = {};
   defaultErrorMessage = 'Check console for more info (ctrl+shift+j)';
   data = this.props.data; // Used for dynamic data
+  bin_queue = new FastPriorityQueue();
   dynamicProps = this.props; // Used for dynamic props
   htmlGraphics = this.getHtmlGraphics();
   fieldDisplayValues: FieldDisplay[] = [];
@@ -205,9 +207,21 @@ export class HTMLPanel extends PureComponent<Props, PanelState> {
       'getTemplateSrv',
       'getLocationSrv',
       'htmlGraphics',
+      'FastPriorityQueue',
       script
     );
-    F(htmlNode, data, codeData, codeData, options, theme, getTemplateSrv, getLocationSrv, htmlGraphics);
+    F(
+      htmlNode,
+      data,
+      codeData,
+      codeData,
+      options,
+      theme,
+      getTemplateSrv,
+      getLocationSrv,
+      htmlGraphics,
+      FastPriorityQueue
+    );
   }
 
   onRender() {
